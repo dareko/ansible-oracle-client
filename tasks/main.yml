@@ -1,0 +1,37 @@
+---
+# This role conains tasks to deploy the Oracle Instant Client
+
+- name: installation files check
+  shell: ls /Users/darek/Documents/edt/ansible/files/instantclient-*.zip
+  connection: local
+  sudo: false
+  register: ls_inst_files
+  changed_when: false
+  tags: check
+
+- name: installation files missing
+  fail: msg="Oracle Instant Client installation files missing"
+  when: ls_inst_files.stdout == ""
+  tags: check
+
+- name: creating base directory
+  file: path={{ oracle_client_base }} state=directory owner={{ _oracle_client.user }} group={{ _oracle_client.group }}
+  tags: install
+
+- name: installing oracle client
+  unarchive: src={{ item }} dest={{ oracle_client_base }}
+  with_items: ls_inst_files.stdout_lines
+  tags: install
+
+# cx_Oracle supports Oracle 10g and 11g client only
+- name: obtaining installation directory
+  shell: ls -d {{ oracle_client_base }}/instantclient_1[01]_*
+  register: ls_oracle_home
+  changed_when: false
+  tags: install
+
+- name: installing cx_Oracle
+  pip: name=cx_Oracle state=latest
+  environment:
+    ORACLE_HOME: "{{ ls_oracle_home.stdout }}"
+  tags: install

@@ -1,0 +1,13 @@
+---
+# defaults file for ansible-oracle-client
+
+# installation base directory
+oracle_client_base: /opt/oracle
+
+### Constants
+
+_oracle_client:
+  user: oracle
+  user_id: 11000
+  group: oinstall
+  group_id: 11000
