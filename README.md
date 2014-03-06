@@ -1,7 +1,7 @@
 Oracle Instant Client Deployment Role
 =====================================
 
-The [dareko.oracle_client](https://galaxy.ansibleworks.com/list#/roles/) role deploys
+The [dareko.oracle_client](https://galaxy.ansibleworks.com/list#/roles/469) role deploys
 the Oracle Instant Client and cx_Oracle python package on a target host.  
 It requires the Oracle Instant Client installation files downloaded from the Oracle site.
 
