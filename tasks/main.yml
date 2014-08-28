@@ -14,6 +14,13 @@
   when: ls_inst_files.stdout == ""
   tags: check
 
+- name: creating oinstall group
+  group: state=present name={{ _oracle_client.group }} gid={{ _oracle_client.group_id }}
+  sudo: true
+
+- name: creating oracle user
+  user: state=present name={{ _oracle_client.user }} uid={{ _oracle_client.user_id }} group={{ _oracle_client.group  }}
+  sudo: true
 - name: creating base directory
   file: path={{ oracle_client_base }} state=directory owner={{ _oracle_client.user }} group={{ _oracle_client.group }}
   tags: install
