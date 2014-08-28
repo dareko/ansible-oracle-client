@@ -2,7 +2,7 @@
 # This role conains tasks to deploy the Oracle Instant Client
 
 - name: installation files check
-  shell: ls /Users/darek/Documents/edt/ansible/files/instantclient-*.zip
+  shell: ls {{ oracle_client_local_oracle_zip_files_dir }}/instantclient-*.zip
   connection: local
   sudo: false
   register: ls_inst_files

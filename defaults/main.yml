@@ -3,6 +3,8 @@
 
 # installation base directory
 oracle_client_base: /opt/oracle
+# Location of the instant client zip files on the local machine
+oracle_client_local_oracle_zip_files_dir: /usr/local/etc/ansible/roles/dareko.oracle_client/files
 
 ### Constants
 
