@@ -42,6 +42,7 @@
 
 - name: installing cx_Oracle
   pip: name=cx_Oracle state=latest
+  when: oracle_client_install_cx_oracle
   environment:
     ORACLE_HOME: "{{ ls_oracle_home.stdout }}"
   tags: install
