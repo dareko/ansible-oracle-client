@@ -21,11 +21,14 @@
 - name: creating oracle user
   user: state=present name={{ _oracle_client.user }} uid={{ _oracle_client.user_id }} group={{ _oracle_client.group  }}
   sudo: true
+
 - name: creating base directory
+  sudo: true
   file: path={{ oracle_client_base }} state=directory owner={{ _oracle_client.user }} group={{ _oracle_client.group }}
   tags: install
 
 - name: installing oracle client
+  sudo: true
   unarchive: src={{ item }} dest={{ oracle_client_base }}
   with_items: ls_inst_files.stdout_lines
   tags: install
