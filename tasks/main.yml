@@ -2,7 +2,7 @@
 # This role conains tasks to deploy the Oracle Instant Client
 
 - name: installation files check
-  shell: ls /Users/darek/Documents/edt/ansible/files/instantclient-*.zip
+  shell: ls {{ oracle_client_local_oracle_zip_files_dir }}/instantclient-*.zip
   connection: local
   sudo: false
   register: ls_inst_files
@@ -14,11 +14,21 @@
   when: ls_inst_files.stdout == ""
   tags: check
 
+- name: creating oinstall group
+  group: state=present name={{ _oracle_client.group }} gid={{ _oracle_client.group_id }}
+  sudo: true
+
+- name: creating oracle user
+  user: state=present name={{ _oracle_client.user }} uid={{ _oracle_client.user_id }} group={{ _oracle_client.group  }}
+  sudo: true
+
 - name: creating base directory
+  sudo: true
   file: path={{ oracle_client_base }} state=directory owner={{ _oracle_client.user }} group={{ _oracle_client.group }}
   tags: install
 
 - name: installing oracle client
+  sudo: true
   unarchive: src={{ item }} dest={{ oracle_client_base }}
   with_items: ls_inst_files.stdout_lines
   tags: install
@@ -32,6 +42,7 @@
 
 - name: installing cx_Oracle
   pip: name=cx_Oracle state=latest
+  when: oracle_client_install_cx_oracle
   environment:
     ORACLE_HOME: "{{ ls_oracle_home.stdout }}"
   tags: install
