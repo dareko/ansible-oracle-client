@@ -33,9 +33,8 @@
   with_items: ls_inst_files.stdout_lines
   tags: install
 
-# cx_Oracle supports Oracle 10g and 11g client only
 - name: obtaining installation directory
-  shell: ls -d {{ oracle_client_base }}/instantclient_1[01]_*
+  shell: ls -d {{ oracle_client_base }}/instantclient_1[012]_*
   register: ls_oracle_home
   changed_when: false
   tags: install
@@ -45,4 +44,9 @@
   when: oracle_client_install_cx_oracle
   environment:
     ORACLE_HOME: "{{ ls_oracle_home.stdout }}"
+  tags: install
+
+- name: creating a symbolink link for cx_Oracle
+  shell: cd {{ ls_oracle_home.stdout }}; ln -s libclntsh.so.11.1 libclntsh.so
+  when: oracle_client_install_cx_oracle
   tags: install

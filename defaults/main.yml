@@ -3,12 +3,12 @@
 
 # installation base directory
 oracle_client_base: /opt/oracle
-# Location of the instant client zip files on the local machine
+# location of the instant client zip files on the local machine
 oracle_client_local_oracle_zip_files_dir: /usr/local/etc/ansible/roles/dareko.oracle_client/files
-# Set to false if you don't want to install cx_Oracle
+# set to false if you don't want to install cx_Oracle
 oracle_client_install_cx_oracle: true
 
-### Constants
+# constants
 
 _oracle_client:
   user: oracle

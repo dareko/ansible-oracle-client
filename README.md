@@ -28,6 +28,9 @@ The variables that can be passed to this role with default values are as follows
 
     # installation base directory
     oracle_client_base: /opt/oracle
+    
+    # location of the instant client zip files on the local machine
+    oracle_client_local_oracle_zip_files_dir: /tmp/ansible/files
 
 Dependencies
 ------------
