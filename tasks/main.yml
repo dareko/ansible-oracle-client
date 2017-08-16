@@ -30,7 +30,7 @@
 - name: installing oracle client
   sudo: true
   unarchive: src={{ item }} dest={{ oracle_client_base }}
-  with_items: ls_inst_files.stdout_lines
+  with_items: "{{ ls_inst_files.stdout_lines }}"
   tags: install
 
 - name: obtaining installation directory
